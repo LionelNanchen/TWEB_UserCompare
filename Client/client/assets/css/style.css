@@ -1,0 +1,59 @@
+.wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+    color: #66615b;
+}
+
+.main-panel {
+    background-color: #f4f3ef;
+    position: relative;
+    float: left;
+    width: calc(100% - 260px);
+}
+
+.sidebar {
+    position: relative;
+    float: right;
+    width: 260px;
+}
+
+.add-user-btn {
+    border: none;
+    background-color: inherit;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    color:#EB5E28;
+    background: #ccc5b9;
+    border-radius: 25px;
+    text-align: center;
+ }
+
+.add-user-btn:hover {
+    background: #bab09e;
+}
+
+.title {
+    font-size: 30px;
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.simple-text:hover{
+    background: #bab09e;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.4em;
+}
+
+.search-bar {
+    color: #66615B;
+    width: 200%;
+    height: 200%;
+}
