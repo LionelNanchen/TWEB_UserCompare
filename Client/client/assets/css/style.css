@@ -1,59 +1,94 @@
 .wrapper {
     position: relative;
     top: 0;
+    width: 100%;
     height: 100vh;
     color: #66615b;
 }
 
-.main-panel {
-    background-color: #f4f3ef;
-    position: relative;
-    float: left;
-    width: calc(100% - 260px);
+hr {
+    height: 1px;
+    background-color: #66615B;
+    color: #66615B;
 }
 
-.sidebar {
-    position: relative;
+/*---------- main panel ----------*/
+
+#main-panel {
+    background-color: #f4f3ef;
+    height: 100%;
+}
+
+/*header*/
+.header {
+    height: 20%;
+}
+
+.title {
+    padding-top: 20px;
+    margin: 0%;
+    font-size: 40px;
+}
+
+.subtitle {
+    font-size: 20px;
+    margin: 0%;
+}
+
+.search-bar {
+    padding-top: 30px;
+    color: #66615B;
+    width: 200%;
+    height: 200%;
+}
+
+/*content*/
+.content {
+    height: 70%;
+}
+
+.users-list {
+    list-style-type: none;
+}
+
+.user-icon {
+}
+
+/*footer*/
+
+.footer {
+    height: 10%;
     float: right;
-    width: 260px;
+}
+
+/*---------- sidebar ----------*/
+
+#sidebar {
+    float: right;
+    height: 100%;
 }
 
 .add-user-btn {
     border: none;
-    background-color: inherit;
+    border-radius: 30px;
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: 23px;
     cursor: pointer;
     display: inline-block;
-    color:#EB5E28;
+    color: #66615b;
     background: #ccc5b9;
-    border-radius: 25px;
     text-align: center;
- }
+    left: 50%;
+}
 
 .add-user-btn:hover {
     background: #bab09e;
 }
 
-.title {
-    font-size: 30px;
-}
-
-.subtitle {
+.users-choosen {
+    list-style-type: none;
+    padding-top: 20px;
     font-size: 20px;
-}
-
-.simple-text:hover{
-    background: #bab09e;
-}
-
-p {
-    font-size: 16px;
-    line-height: 1.4em;
-}
-
-.search-bar {
-    color: #66615B;
-    width: 200%;
-    height: 200%;
+    color: #66615b;
+    line-height: 40px;
 }
