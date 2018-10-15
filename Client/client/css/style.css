@@ -27,11 +27,14 @@ body {
 }
 
 .add-user-button {
-  border-radius: 50%;
+  border-radius: 200%;
   position: absolute;
   top: 205px;
   left: 30px;
   height: 50px;
   width: 50px;
-  background-color: white;
+}
+
+.title {
+  font-size: 25px;
 }
