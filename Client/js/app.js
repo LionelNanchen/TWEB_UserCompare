@@ -46,7 +46,7 @@ $(function () {
 
     let a = document.createElement("a");
     a.setAttribute("href", "#");
-    a.setAttribute("class", "list-group-item");
+    a.setAttribute("class", "list-group-item user-list");
 
     let spanUserName = document.createElement("span");
     spanUserName.setAttribute("id", userNameID);
@@ -56,9 +56,7 @@ $(function () {
     button.setAttribute("type", "button");
     button.setAttribute("class", "close delete-user");
     button.setAttribute("aria-label", "Close");
-    button.click(function deleteUserFromList() {
-      this.parentElement.parentElement.removeChild(this.parentElement);
-    });
+
 
     let span = document.createElement("span");
     span.setAttribute("aria-hidden", "true");
@@ -79,7 +77,7 @@ $(function () {
    *  Action performed after click on a user frame or user name in the users list.
    *  Open model with the user informations.
    */
-  $(".user-frame-image, .user-list").click(function openUserInfo() {
+  $(document).on("click", ".user-frame-image, .user-list", function openUserInfo() {
     $("#user-info-modal").modal();
   });
 
@@ -87,8 +85,12 @@ $(function () {
    * Action performed after click on a cross in the users list.
    * Delete the user from the list.
    */
-  $(".delete-user").click(function deleteUserFromList() {
+  $(document).on("click", ".delete-user", function deleteUserFromList() {
     this.parentElement.parentElement.removeChild(this.parentElement);
-  });
 
+    // let user = $("#" + this.getAttribute("id").substring(0, name.length - 6))[0];
+    // user.parentElement.parentElement.removeChild(user.parentElement);
+    // this.parentElement.removeChild(this);
+    //don't forget to delete id in index.html
+  });
 });
