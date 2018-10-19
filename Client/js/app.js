@@ -79,18 +79,46 @@ $(function () {
   */
   $(document).on("click", "#compare-user-btn", function() {
     let table = $("#users-comparison-table");
-    let tbody = $("#sorted-tbody");
+    let headRow = $("#head-row");
+    let rows = $("#sorted-tbody").children();
 
     //clear the table
-    // table.children().not(":first").remove();
+    table.find("th").not(":first").remove();
+    table.find("td").not(":first").remove();
 
     //get users
     let users = $("#users-list").children();
 
+    //users names
     for (let i = 0; i < users.length; i++) {
-      let user = document.createElement("li");
-      user.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
-      table.append(user);
+      let th = document.createElement("th");
+      th.setAttribute("class", "text-center");
+      th.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
+      headRow.append(th);
+    }
+
+    //users images
+    for (let i = 0; i < users.length; i++) {
+      let td = document.createElement("td");
+      td.setAttribute("class", "text-center");
+      img = document.createElement("img");
+      img.setAttribute("src", "images/patseb.jpg");
+      img.setAttribute("class", "rounded-circle table-user-image")
+      td.appendChild(img);
+      rows[0].appendChild(td);
+    }
+
+    //user infos
+    for (let i = 0; i < users.length; i++) {
+
+    }
+
+    for (let i = 0; i < users.length; i++) {
+
+    }
+
+    for (let i = 0; i < users.length; i++) {
+
     }
 
     //code inspired by https://johnny.github.io/jquery-sortable/#
@@ -131,7 +159,7 @@ $(function () {
       }
     });
 
-    $("#compare-user-modal").modal();
+    $("#compare-users-modal").modal();
   });
 
   /**

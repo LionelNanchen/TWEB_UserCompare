@@ -51,10 +51,10 @@ body {
 
 .user-list {
   height: 50px;
-  /* position: relative; */
 }
 
 .users-list-name {
+  white-space: nowrap;
   overflow: hidden;
   display: block;
   text-overflow: ellipsis;
@@ -73,7 +73,20 @@ body {
   padding: 0;
 }
 
-/* for the sortable table (compare-user-modal) */
+.table-user-image {
+  width: 100px;
+  height: 100px;
+}
+
+#compare-users-modal-doc {
+  max-width: 95%;
+}
+
+.table-row {
+  vertical-align: middle;
+}
+
+/* for the sortable table (compare-users-modal) */
 body.dragging, body.dragging * {
   cursor: move !important;
 }
