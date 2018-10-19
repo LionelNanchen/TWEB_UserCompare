@@ -79,7 +79,9 @@ $(function () {
    *  Open model with the user informations.
    */
   $(document).on("click", ".user-frame-image, .user-list", function () {
-    userInfoModalBody = $("#user-info-modal-body");
+
+    //title
+    $("#user-info-modal-title").text("USER NAME YO");//CHANGE WITH USER NAME
 
     //image
     $("#user-modal-image").attr("src", "images/patseb.jpg");//CHANGE WITH IMAGE
