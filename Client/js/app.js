@@ -78,6 +78,13 @@ $(function () {
   *  Open model with the users comparison.
   */
   $(document).on("click", "#compare-user-btn", function() {
+    //get users
+    let users = $("#users-list").children();
+
+    //need at least 2 users to compare
+    if (users.length < 2) return;
+
+    //get table informations
     let table = $("#users-comparison-table");
     let headRow = $("#head-row");
     let rows = $("#sorted-tbody").children();
@@ -86,30 +93,26 @@ $(function () {
     table.find("th").not("th").remove();
     table.find("td").not("th").remove();
 
-    //get users
-    let users = $("#users-list").children();
-
-    //users names
-    for (let i = 0; i < users.length; i++) {
-      let th = document.createElement("td");
-      th.setAttribute("class", "text-center");
-      th.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
-      headRow.append(th);
-    }
-
     //users images
     for (let i = 0; i < users.length; i++) {
       let td = document.createElement("td");
-      td.setAttribute("class", "table-row");
-      td.setAttribute("class", "text-center");
+      td.setAttribute("class", "text-center table-row");
       img = document.createElement("img");
       //TO CHANGE
       if(i == 1) img.setAttribute("src", "images/patseb.jpg");
       if(i == 0) img.setAttribute("src", "images/kyloren.png");
       //TO CHANGE
       img.setAttribute("class", "rounded-circle table-user-image")
-      td.appendChild(img);
-      rows[0].appendChild(td);
+      td.append(img);
+      headRow.append(td);
+    }
+
+    //users names
+    for (let i = 0; i < users.length; i++) {
+      let td = document.createElement("td");
+      td.setAttribute("class", "text-center table-row");
+      td.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
+      rows[0].append(td);
     }
 
     //user infos
@@ -117,14 +120,14 @@ $(function () {
       let td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = "some informations";
-      rows[1].appendChild(td);
+      rows[1].append(td);
     }
 
     for (let i = 0; i < users.length; i++) {
       let td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = "some other informations";
-      rows[2].appendChild(td);
+      rows[2].append(td);
     }
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
