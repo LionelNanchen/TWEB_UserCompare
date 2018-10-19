@@ -1,14 +1,5 @@
 
 $(function () {
-  //Constants
-  const USER_INFOS_REPOS_ALL = "Global number of repo (total/ private/ public):";
-  const USER_INFOS_REPOS_CREATED = "Number of repo created:";
-  const USER_INFOS_REPOS_JOINED = "Number of repo joined:";
-  const USER_INFOS_LINES_ADDED = "Number of added lines of code (++):";
-  const USER_INFOS_LINES_SUB = "Number of subtracted lines of code (--):";
-  const USER_INFOS_LINES_RATIO = "Ratio between added and subtracted lines of code:";
-  const USER_INFOS_ARRAY = [USER_INFOS_REPOS_ALL, USER_INFOS_REPOS_CREATED, USER_INFOS_REPOS_JOINED, USER_INFOS_LINES_ADDED, USER_INFOS_LINES_SUB, USER_INFOS_LINES_RATIO]
-
   /**
   *  Check if the user is already in the list.
   *  @param String userNameID  the id of the list-group-item corresponding to the user.
@@ -91,31 +82,17 @@ $(function () {
     userInfoModalBody = $("#user-info-modal-body");
 
     //image
-    let imgDiv = document.createElement("div");
-    imgDiv.setAttribute("class", "text-center mb-4");
-
-    let img = document.createElement("img");
-    img.setAttribute("class", "rounded-circle user-image");
-    img.setAttribute("src", "images/patseb.jpg"); //CHANGE
-    imgDiv.appendChild(img);
+    $("#user-modal-image").attr("src", "images/patseb.jpg");//CHANGE WITH IMAGE
 
     //infos
-    let infosDiv = document.createElement("div");
-    infosDiv.setAttribute("class", "user-infos");
+    $("#user-infos-repo-global").text("yolo/yolo/yolo");
+    $("#user-infos-repo-created").text("yala");
+    $("#user-infos-repo-joined").text("lol");
+    $("#user-infos-added-line").text("lil");
+    $("#user-infos-sub-line").text("yo");
+    $("#user-infos-ratio-line").text("ya");
 
-    for (let i = 0; i < USER_INFOS_ARRAY.length; ++i) {
-      let h3 = document.createElement("h3");
-      h3.textContent = USER_INFOS_ARRAY[i];
-      let p = document.createElement("p");
-      p.textContent = "lol";
-      infosDiv.appendChild(h3);
-      infosDiv.appendChild(p);
-    }
-    //add to modal body
-    userInfoModalBody.append(imgDiv);
-    userInfoModalBody.append(infosDiv);
-
-
+    //open modal
     $("#user-info-modal").modal();
   });
 

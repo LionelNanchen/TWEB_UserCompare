@@ -40,10 +40,9 @@ body {
   font-size: 30px;
 }
 
-.user-image {
+#user-modal-image {
   width: 300px;
   height: 300px;
-  
 }
 
 .users-list-title {
