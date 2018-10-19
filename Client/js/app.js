@@ -9,8 +9,8 @@ $(function () {
   }
 
   /**
-   * Sort the users list
-   */
+  * Sort the users list
+  */
   function sortUsersList() {
     let i, users, shouldSwitch;
     let list = document.getElementById("users-list");
@@ -58,7 +58,6 @@ $(function () {
     button.setAttribute("class", "close delete-user");
     button.setAttribute("aria-label", "Close");
 
-
     let span = document.createElement("span");
     span.setAttribute("aria-hidden", "true");
     span.innerHTML = "&times;";
@@ -75,9 +74,70 @@ $(function () {
   });
 
   /**
-   *  Action performed after click on a user frame or user name in the users list.
-   *  Open model with the user informations.
-   */
+  *  Action performed after click on the compare users button
+  *  Open model with the users comparison.
+  */
+  $(document).on("click", "#compare-user-btn", function() {
+    let table = $("#users-comparison-table");
+    let tbody = $("#sorted-tbody");
+
+    //clear the table
+    // table.children().not(":first").remove();
+
+    //get users
+    let users = $("#users-list").children();
+
+    for (let i = 0; i < users.length; i++) {
+      let user = document.createElement("li");
+      user.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
+      table.append(user);
+    }
+
+    //code inspired by https://johnny.github.io/jquery-sortable/#
+    $("#users-comparison-table").sortable({
+      containerSelector: "#users-comparison-table",
+      itemPath: '> tbody',
+      itemSelector: 'tr',
+      placeholder: '<tr class="placeholder"/>'
+    });
+
+    var oldIndex;
+    $('#sorted-head tr').sortable({
+      containerSelector: 'tr',
+      itemSelector: 'th:not(#first-column)',
+      placeholder: '<th class="placeholder"/>',
+      vertical: false,
+      onDragStart: function ($item, container, _super) {
+        oldIndex = $item.index();
+        $item.appendTo($item.parent());
+        _super($item, container);
+      },
+      onDrop: function  ($item, container, _super) {
+        var field,
+        newIndex = $item.index();
+
+        if(newIndex != oldIndex) {
+          $item.closest('table').find('tbody tr').each(function (i, row) {
+            row = $(row);
+            if(newIndex < oldIndex) {
+              row.children().eq(newIndex).before(row.children()[oldIndex]);
+            } else if (newIndex > oldIndex) {
+              row.children().eq(newIndex).after(row.children()[oldIndex]);
+            }
+          });
+        }
+
+        _super($item, container);
+      }
+    });
+
+    $("#compare-user-modal").modal();
+  });
+
+  /**
+  *  Action performed after click on a user frame or user name in the users list.
+  *  Open model with the user informations.
+  */
   $(document).on("click", ".user-frame-image, .user-list", function () {
 
     //title
@@ -99,9 +159,9 @@ $(function () {
   });
 
   /**
-   * Action performed after click on a cross in the users list.
-   * Delete the user from the list.
-   */
+  * Action performed after click on a cross in the users list.
+  * Delete the user from the list.
+  */
   $(document).on("click", ".delete-user", function (e) {
     e.stopPropagation();
     this.parentElement.parentElement.removeChild(this.parentElement);
