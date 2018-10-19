@@ -68,9 +68,10 @@ body {
   transform: translateY(-50%);
 }
 
-.users-comparison-row, .users-comparison-table {
+.users-comparison-table {
   list-style-type: none;
   padding: 0;
+  max-height: 100%;
 }
 
 .table-user-image {

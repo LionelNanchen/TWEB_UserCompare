@@ -83,15 +83,15 @@ $(function () {
     let rows = $("#sorted-tbody").children();
 
     //clear the table
-    table.find("th").not(":first").remove();
-    table.find("td").not(":first").remove();
+    table.find("th").not("th").remove();
+    table.find("td").not("th").remove();
 
     //get users
     let users = $("#users-list").children();
 
     //users names
     for (let i = 0; i < users.length; i++) {
-      let th = document.createElement("th");
+      let th = document.createElement("td");
       th.setAttribute("class", "text-center");
       th.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
       headRow.append(th);
@@ -100,6 +100,7 @@ $(function () {
     //users images
     for (let i = 0; i < users.length; i++) {
       let td = document.createElement("td");
+      td.setAttribute("class", "table-row");
       td.setAttribute("class", "text-center");
       img = document.createElement("img");
       img.setAttribute("src", "images/patseb.jpg");
@@ -110,16 +111,20 @@ $(function () {
 
     //user infos
     for (let i = 0; i < users.length; i++) {
-
+      let td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      td.textContent = "some informations";
+      rows[1].appendChild(td);
     }
 
     for (let i = 0; i < users.length; i++) {
-
+      let td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      td.textContent = "some other informations";
+      rows[2].appendChild(td);
     }
 
-    for (let i = 0; i < users.length; i++) {
-
-    }
+    $("#users-comparison-table #sorted-head tr").sortable("refresh");
 
     //code inspired by https://johnny.github.io/jquery-sortable/#
     $("#users-comparison-table").sortable({
