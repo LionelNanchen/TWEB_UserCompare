@@ -103,7 +103,10 @@ $(function () {
       td.setAttribute("class", "table-row");
       td.setAttribute("class", "text-center");
       img = document.createElement("img");
-      img.setAttribute("src", "images/patseb.jpg");
+      //TO CHANGE
+      if(i == 1) img.setAttribute("src", "images/patseb.jpg");
+      if(i == 0) img.setAttribute("src", "images/kyloren.png");
+      //TO CHANGE
       img.setAttribute("class", "rounded-circle table-user-image")
       td.appendChild(img);
       rows[0].appendChild(td);
@@ -137,7 +140,7 @@ $(function () {
     var oldIndex;
     $('#sorted-head tr').sortable({
       containerSelector: 'tr',
-      itemSelector: 'th:not(#first-column)',
+      itemSelector: 'td',
       placeholder: '<th class="placeholder"/>',
       vertical: false,
       onDragStart: function ($item, container, _super) {
