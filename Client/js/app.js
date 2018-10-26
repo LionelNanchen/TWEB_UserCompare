@@ -1,12 +1,22 @@
 $(function () {
 
+  //Global elements
   const ADD_USER_BUTTON = "images/add_user.png";
 
+  /**
+   * Initialize the content of the page
+   */
   function initialize() {
     createFrame(new User("Kylo Ren"));
     createFrame(new User("Patrick Sebastien"));
+    createFrame(new User("Donald Trump"));
+    createFrame(new User("Alain Berset"));
   }
 
+  /**
+   * Create a frame with the user informations
+   * @param user the user on which the frame will be created
+   */
   function createFrame(user) {
     const row = $("#user-frame-row");
     const div = document.createElement("div");
@@ -25,14 +35,32 @@ $(function () {
     h3.setAttribute("class", "user-frame-name");
     h3.textContent = user.getName();
 
+    //append new elements
     div.appendChild(buttonImg);
     div.appendChild(a);
     div.appendChild(h3);
     row.append(div);
 
+    //attach user to the frame
     $("#" + a.id).data(a.id, user);
   }
 
+  //code inspired by https://www.w3schools.com/howto/howto_js_filter_lists.asp
+  $(document).on("keyup", ".search-bar", function () {
+    let input, filter, ul, li, a, i;
+    input = document.getElementById("search-bar");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("user-frame-row");
+    frames = div.getElementsByClassName("user-frame");
+    for (i = 0; i < frames.length; i++) {
+        frame = frames[i];
+        if (frame.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            frames[i].style.display = "";
+        } else {
+            frames[i].style.display = "none";
+        }
+    }
+  });
 
   /**
   *  Check if the user is already in the list.
@@ -72,36 +100,32 @@ $(function () {
   *  Add the user in the user list.
   */
   $(document).on("click", ".add-user-button", function addUserToList() {
-    let userName = this.parentElement.getElementsByClassName("user-frame-name")[0].textContent;
-    let id = userName.split(' ').join('-') + "-list"; //id for the futur user a in the list
+    //get user attach to the frame
+    const frame = this.parentElement.getElementsByClassName("user-frame-image")[0];
+    const frameId = frame.getAttribute("id");
+    const user = $("#" + frameId).data(frameId);
+
+    //id for the futur user a in the list
+    const id = user.getName().split(' ').join('-') + "-list";
 
     //check if user is already in the list
     if (isUserInList(id)) return;
 
-    // const frame = this.parentElement.getElementsByClassName("user-frame-image");
-    // const frameId = frame.getAttribute("id");
-    // const user = $(frameId).data(frameId);
-
-    // const id = user.getName().split(' ').join('-') + "-list"; //id for the futur user a in the list
-
-
-    let user = new User(userName); //TO CHANGE
-
-    let a = document.createElement("a");
+    const a = document.createElement("a");
     a.setAttribute("href", "#");
     a.setAttribute("class", "list-group-item user-list");
     a.setAttribute("id", id);
 
-    let spanUserName = document.createElement("span");
+    const spanUserName = document.createElement("span");
     spanUserName.setAttribute("class", "users-list-name")
     spanUserName.textContent = user.getName();
 
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.setAttribute("type", "button");
     button.setAttribute("class", "close delete-user");
     button.setAttribute("aria-label", "Close");
 
-    let span = document.createElement("span");
+    const span = document.createElement("span");
     span.setAttribute("aria-hidden", "true");
     span.innerHTML = "&times;";
 
@@ -109,7 +133,7 @@ $(function () {
     button.appendChild(span);
     a.appendChild(button);
 
-    let element = document.getElementById("users-list");
+    const element = document.getElementById("users-list");
     element.appendChild(a);
 
     //attach user to user element in list
@@ -259,6 +283,6 @@ $(function () {
     this.parentElement.parentElement.removeChild(this.parentElement);
   });
 
-
+  //Initialization of the web page;
   initialize();
 });

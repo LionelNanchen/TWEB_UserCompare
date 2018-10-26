@@ -5,11 +5,15 @@ class User {
     // this.avatar = this.user.avatar_url;
     this.user = userName;
     this.name = userName;
-    
+
     if (userName === "Kylo Ren") {
       this.avatar = "images/"+ "kyloren" + ".png";
-    } else {
+    } else if (userName === "Patrick Sebastien") {
       this.avatar = "images/"+ "patseb" + ".png";
+    } else if (userName === "Donald Trump") {
+      this.avatar = "images/"+ "trump" + ".png";
+    } else {
+      this.avatar = "images/"+ "alain" + ".png";
     }
 
   }
