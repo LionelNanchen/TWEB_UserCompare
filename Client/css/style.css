@@ -68,6 +68,10 @@ body {
   transform: translateY(-50%);
 }
 
+.user-frame-image {
+  cursor: pointer;
+}
+
 #users-comparison-table {
   list-style-type: none;
   padding: 0;

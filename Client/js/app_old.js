@@ -1,45 +1,11 @@
+
 $(function () {
-
-  const ADD_USER_BUTTON = "images/add_user.png";
-
-  function initialize() {
-    createFrame(new User("Kylo Ren"));
-    createFrame(new User("Patrick Sebastien"));
-  }
-
-  function createFrame(user) {
-    const row = $("#user-frame-row");
-    const div = document.createElement("div");
-    div.setAttribute("class", "col-lg-4 col-sm-6 text-center mb-4 user-frame");
-    const buttonImg = document.createElement("img");
-    buttonImg.setAttribute("class", "add-user-button");
-    buttonImg.src = ADD_USER_BUTTON;
-    const a = document.createElement("a");
-    a.setAttribute("class", "user-frame-image");
-    a.id = user.getName().split(' ').join('-') + "-frame";
-    const avatar = document.createElement("img");
-    avatar.setAttribute("class", "rounded-circle img-fluid d-block mx-auto");
-    avatar.src = user.getAvatar();
-    a.appendChild(avatar);
-    const h3 = document.createElement("h3");
-    h3.setAttribute("class", "user-frame-name");
-    h3.textContent = user.getName();
-
-    div.appendChild(buttonImg);
-    div.appendChild(a);
-    div.appendChild(h3);
-    row.append(div);
-
-    $("#" + a.id).data(a.id, user);
-  }
-
-
   /**
   *  Check if the user is already in the list.
-  *  @param String id  the id of the list-group-item corresponding to the user.
+  *  @param String userNameID  the id of the list-group-item corresponding to the user.
   */
-  function isUserInList(id) {
-    return $("#" + id).length > 0;
+  function isUserInList(userNameID) {
+    return $("#" + userNameID).length > 0;
   }
 
   /**
@@ -55,7 +21,7 @@ $(function () {
       users = list.getElementsByClassName("list-group-item");
       for (i = 0; i < (users.length - 1); ++i) {
         shouldSwitch = false;
-        if (users[i].textContent.toLowerCase() > users[i + 1].textContent.toLowerCase()) {
+        if (users[i].innerHTML.toLowerCase() > users[i + 1].innerHTML.toLowerCase()) {
           shouldSwitch = true;
           break;
         }
@@ -71,30 +37,21 @@ $(function () {
   *  Action performed after click on the add-user-button button.
   *  Add the user in the user list.
   */
-  $(document).on("click", ".add-user-button", function addUserToList() {
+  $(".add-user-button").click(function addUserToList() {
     let userName = this.parentElement.getElementsByClassName("user-frame-name")[0].textContent;
-    let id = userName.split(' ').join('-') + "-list"; //id for the futur user a in the list
+    let userNameID = userName.split(' ').join('-') + "-list"; //id for the futur userName span in the list
 
     //check if user is already in the list
-    if (isUserInList(id)) return;
-
-    // const frame = this.parentElement.getElementsByClassName("user-frame-image");
-    // const frameId = frame.getAttribute("id");
-    // const user = $(frameId).data(frameId);
-
-    // const id = user.getName().split(' ').join('-') + "-list"; //id for the futur user a in the list
-
-
-    let user = new User(userName); //TO CHANGE
+    if (isUserInList(userNameID)) return;
 
     let a = document.createElement("a");
     a.setAttribute("href", "#");
     a.setAttribute("class", "list-group-item user-list");
-    a.setAttribute("id", id);
 
     let spanUserName = document.createElement("span");
+    spanUserName.setAttribute("id", userNameID);
     spanUserName.setAttribute("class", "users-list-name")
-    spanUserName.textContent = user.getName();
+    spanUserName.textContent = userName;
 
     let button = document.createElement("button");
     button.setAttribute("type", "button");
@@ -112,9 +69,6 @@ $(function () {
     let element = document.getElementById("users-list");
     element.appendChild(a);
 
-    //attach user to user element in list
-    $("#" + id).data(id, user);
-
     //sort the list
     sortUsersList();
   });
@@ -125,22 +79,15 @@ $(function () {
   */
   $(document).on("click", "#compare-user-btn", function() {
     //get users
-    const userslist = $("#users-list").children();
+    let users = $("#users-list").children();
 
     //need at least 2 users to compare
-    if (userslist.length < 2) return;
-
-    //initialize array with all UserList objects
-    let users = [];
-    for (let i = 0; i < userslist.length; ++i) {
-      const id = userslist[i].getAttribute("id")
-      users.push($("#" + id).data(id));
-    }
+    if (users.length < 2) return;
 
     //get table informations
-    const table = $("#users-comparison-table");
-    const headRow = $("#head-row");
-    const rows = $("#sorted-tbody").children();
+    let table = $("#users-comparison-table");
+    let headRow = $("#head-row");
+    let rows = $("#sorted-tbody").children();
 
     //clear the table
     table.find("th").not("th").remove();
@@ -148,10 +95,13 @@ $(function () {
 
     //users images
     for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
+      let td = document.createElement("td");
       td.setAttribute("class", "text-center table-row");
-      const img = document.createElement("img");
-      img.setAttribute("src", users[i].getAvatar());
+      img = document.createElement("img");
+      //TO CHANGE
+      if(i == 1) img.setAttribute("src", "images/patseb.jpg");
+      if(i == 0) img.setAttribute("src", "images/kyloren.png");
+      //TO CHANGE
       img.setAttribute("class", "rounded-circle table-user-image");
       td.append(img);
       headRow.append(td);
@@ -159,22 +109,22 @@ $(function () {
 
     //users names
     for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
-      td.class = "text-center table-row";
-      td.textContent = users[i].getName();
+      let td = document.createElement("td");
+      td.setAttribute("class", "text-center table-row");
+      td.textContent = users[i].getElementsByClassName("users-list-name")[0].textContent;
       rows[0].append(td);
     }
 
     //user infos
     for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
+      let td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = "some informations";
       rows[1].append(td);
     }
 
     for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
+      let td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = "some other informations";
       rows[2].append(td);
@@ -215,6 +165,7 @@ $(function () {
             }
           });
         }
+
         _super($item, container);
       }
     });
@@ -228,15 +179,11 @@ $(function () {
   */
   $(document).on("click", ".user-frame-image, .user-list", function () {
 
-    //get user
-    const id = this.getAttribute("id");
-    user = $("#" + id).data(id);
-
     //title
-    $("#user-info-modal-title").text(user.getName());//CHANGE WITH USER NAME
+    $("#user-info-modal-title").text("USER NAME YO");//CHANGE WITH USER NAME
 
     //image
-    $("#user-modal-image").attr("src", user.getAvatar());//CHANGE WITH IMAGE
+    $("#user-modal-image").attr("src", "images/patseb.jpg");//CHANGE WITH IMAGE
 
     //infos
     $("#user-infos-repo-global").text("yolo/yolo/yolo");
@@ -258,7 +205,4 @@ $(function () {
     e.stopPropagation();
     this.parentElement.parentElement.removeChild(this.parentElement);
   });
-
-
-  initialize();
 });

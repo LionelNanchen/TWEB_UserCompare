@@ -28,22 +28,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <!-- <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-      <a class="nav-link" href="#">Home
-      <span class="sr-only">(current)</span>
-    </a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href="#">About</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Services</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="#">Contact</a>
-</li>
-</ul> -->
 </div>
 </div>
 </nav>
@@ -59,8 +43,8 @@
       <h3 class="users-list-title">Users list</h3>
       <button type="button" class="btn btn-outline-primary" id="compare-user-btn" data-toggle="modal">Compare users</button>
       <div class="list-group" id="users-list">
-        <a href="#" class="list-group-item user-list"><span class="users-list-name" id="Kylo-Ren-list">Kylo Ren</span><button type="button" class="close delete-user" aria-label="Close" id="Kylo-Ren-list-close"><span aria-hidden="true">&times;</span></button></a>
-        <a href="#" class="list-group-item user-list"><span class="users-list-name" id="Patrick-Sebastien-list">Patrick Sebastien</span><button type="button" class="close delete-user" aria-label="Close"><span aria-hidden="true">&times;</span></button></a>
+        <!-- <a href="#" class="list-group-item user-list" id="Kylo-Ren-list"><span class="users-list-name">Kylo Ren</span><button type="button" class="close delete-user" aria-label="Close" id="Kylo-Ren-list-close"><span aria-hidden="true">&times;</span></button></a> -->
+        <!-- <a href="#" class="list-group-item user-list" id="Patrick-Sebastien-list"><span class="users-list-name">Patrick Sebastien</span><button type="button" class="close delete-user" aria-label="Close"><span aria-hidden="true">&times;</span></button></a> -->
       </div>
 
     </div><!-- /.col-lg-3 -->
@@ -72,22 +56,23 @@
         <input type="text" class="form-control search-bar" placeholder="Search user...">
       </div>
 
-      <div class="row">
+      <div class="row" id="user-frame-row">
 
         <!-- User frames -->
         <div class="col-lg-12">
           <h2 class="my-4">Users found</h2>
         </div>
-        <div class="col-lg-4 col-sm-6 text-center mb-4 user-frame">
+
+        <!-- <div class="col-lg-4 col-sm-6 text-center mb-4 user-frame">
           <img class="add-user-button" src="images/add_user.png" alt="">
-          <a href="#"><img class="rounded-circle img-fluid d-block mx-auto user-frame-image" src="images/kyloren.png" alt=""></a>
+          <a href="#" class="user-frame-image" id="Kylo-Ren-frame"><img class="rounded-circle img-fluid d-block mx-auto" src="images/kyloren.png" alt=""></a>
           <h3 class="user-frame-name">Kylo Ren</h3>
         </div>
         <div class="col-lg-4 col-sm-6 text-center mb-4 user-frame">
           <img class="add-user-button" src="images/add_user.png" alt="">
-          <a href="#"><img class="rounded-circle img-fluid d-block mx-auto user-frame-image" src="images/patseb.jpg" alt=""></a>
+          <a href="#" class="user-frame-image" id="Patrick-Sebastien-frame"><img class="rounded-circle img-fluid d-block mx-auto" src="images/patseb.png" alt=""></a>
           <h3 class="user-frame-name">Patrick Sebastien</h3>
-        </div>
+        </div> -->
 
       </div><!-- /.row -->
 
@@ -187,6 +172,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/user.js"></script>
 <script src="js/app.js"></script>
 <script src="js/jquery-sortable-min.js"></script>
 
