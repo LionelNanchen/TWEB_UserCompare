@@ -12,13 +12,13 @@ function getReposLanguagesStats(reposLanguages = []) {
 }
 
 function getReposStats(reposStats = [], username) {
-  let filtered = [];
+  const filtered = [];
 
   reposStats.forEach(s => s.forEach((e) => {
     if (e.author.login === username) { filtered.push(e); }
   }));
 
-  let stats = {
+  const stats = {
     a: 0,
     d: 0,
     c: 0,
