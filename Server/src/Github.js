@@ -69,7 +69,9 @@ class Github {
     return this.repos(username)
       .then((repos) => {
         const getStats = repo => this.repoStats(repo.full_name);
-        return Promise.all(repos.map(getStats));
+        
+        // the filter ignore empty repos (error is the repo is empty with stats API) : https://github.com/octokit/octokit.rb/issues/912
+        return Promise.all(repos.filter(repo => repo.size).map(getStats));
       });
   }
 }
