@@ -9,7 +9,7 @@
     "test": "mocha",
     "lint": "eslint app.js src/**/*.js"
   },
-  "author": "Paul Nta",
+  "author": "LionelNanchen and onicoleheig",
   "license": "ISC",
   "devDependencies": {
     "chai": "^4.2.0",
