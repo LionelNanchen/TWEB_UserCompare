@@ -27,9 +27,36 @@ Copy the ```.env.default``` file and rename it to ```.env``` and edit the token 
 
 ```$ npm install```
 
-4. **Run the app.js**
+4. **Start MangoDB**
+
+``` $ mongod```
+
+5. **Run the app.js**
 
 ```$ npm start```
 
 
 
+
+
+## Some helpfull links that we used
+
+MangoDB / mongoose
+
+https://docs.mongodb.com/guides/server/install/
+
+https://mongoosejs.com/
+
+https://mongoosejs.com/docs/index.html
+
+
+
+Backend
+
+https://github.com/heig-vd-tweb/express-server-skeleton
+
+
+
+Frontend
+
+https://github.com/heig-vd-tweb/github-analytics-light

@@ -2,12 +2,18 @@
 require('dotenv/config');
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const Github = require('./src/Github');
 const utils = require('./src/utils');
 
 const app = express();
 const port = process.env.PORT || 3000;
 const client = new Github({ token: process.env.OAUTH_TOKEN });
+
+mongoose.connect('mongodb://localhost:27017/usercompare');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'ERROR : Server not connected to the DB : '));
+db.once('open', () => { console.log('Server connected to the DB'); });
 
 // enable CORS for the client app
 app.use(cors());
