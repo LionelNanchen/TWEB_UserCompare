@@ -1,16 +1,3 @@
-function getReposLanguagesStats(reposLanguages = []) {
-  const stats = {};
-  const countLanguages = o => {
-    Object.keys(o).forEach(key => {
-      const value = o[key];
-      const current = stats[key] || 0;
-      stats[key] = current + value;
-    });
-  };
-  reposLanguages.forEach(countLanguages);
-  return stats;
-}
-
 function getReposStats(reposStats = [], username) {
   const filtered = [];
 
@@ -40,9 +27,6 @@ function getReposStats(reposStats = [], username) {
   return stats;
 }
 
-function getFollowStats(){}
-
 module.exports = {
-  getReposLanguagesStats,
   getReposStats,
 };
