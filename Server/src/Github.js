@@ -44,6 +44,14 @@ class Github {
     return this.request(`/users/${username}`);
   }
 
+  userFollowing(username) {
+    return this.request(`/users/${username}/following`);
+  }
+
+  userFollowers(username) {
+    return this.request(`/users/${username}/followers`);
+  }
+
   repos(username) {
     return this.request(`/users/${username}/repos`);
   }

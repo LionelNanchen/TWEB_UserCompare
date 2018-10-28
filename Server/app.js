@@ -30,14 +30,14 @@ lionel.save().then(() => console.log('User saved'));
 app.use(cors());
 
 // return informations from user
-app.get('/users/:username', (req, res, next) => { // eslint-disable-line no-unused-vars
+app.get('/users/:username', (req, res, next) => {
   client.user(req.params.username)
     .then(user => res.send(user))
     .catch(next);
 });
 
 // return all languages used by a user with number of lines of code
-app.get('/languages/:username', (req, res, next) => { // eslint-disable-line no-unused-vars
+app.get('/languages/:username', (req, res, next) => {
   client.userLanguages(req.params.username)
     .then(utils.getReposLanguagesStats)
     .then(stats => res.send(stats))
@@ -45,9 +45,23 @@ app.get('/languages/:username', (req, res, next) => { // eslint-disable-line no-
 });
 
 // return the stats of all users repos (only repos created by the user !)
-app.get('/stats/:username', (req, res, next) => { // eslint-disable-line no-unused-vars
+app.get('/stats/:username', (req, res, next) => {
   client.userStats(req.params.username)
     .then((data) => { return utils.getReposStats(data, req.params.username); })
+    .then(stats => res.send(stats))
+    .catch(next);
+});
+
+// return followers users
+app.get('/following/:username', (req, res, next) => {
+  client.userFollowing(req.params.username)
+    .then(stats => res.send(stats))
+    .catch(next);
+});
+
+// return following users
+app.get('/followers/:username', (req, res, next) => {
+  client.userFollowers(req.params.username)
     .then(stats => res.send(stats))
     .catch(next);
 });
@@ -60,7 +74,7 @@ app.use((req, res, next) => {
 });
 
 // error handler
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+app.use((err, req, res, next) => { // eslint-disable-line
   console.error(err);
   res.status(err.status || 500);
   res.send(err.message);

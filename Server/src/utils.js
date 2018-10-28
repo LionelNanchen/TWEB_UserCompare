@@ -40,6 +40,8 @@ function getReposStats(reposStats = [], username) {
   return stats;
 }
 
+function getFollowStats(){}
+
 module.exports = {
   getReposLanguagesStats,
   getReposStats,
