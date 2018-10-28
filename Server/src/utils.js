@@ -14,9 +14,14 @@ function getReposLanguagesStats(reposLanguages = []) {
 function getReposStats(reposStats = [], username) {
   const filtered = [];
 
-  reposStats.forEach(s => s.forEach((e) => {
-    if (e.author.login === username) { filtered.push(e); }
-  }));
+  // filter by username
+  reposStats.forEach((s) => {
+    if (s.constructor === Array) {
+      s.forEach((e) => {
+        if (e.author.login === username) { filtered.push(e); }
+      });
+    }
+  });
 
   const stats = {
     a: 0,

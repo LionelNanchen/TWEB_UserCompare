@@ -1,16 +1,44 @@
 $(function () {
 
+  const baseUrl = 'http://localhost:3000';
+
+  function getUser(username) {
+    return fetch(`${baseUrl}/users/${username}`)
+      .then(res => res.json());
+  }
+
+  function getStats(username) {
+    return fetch(`${baseUrl}/stats/${username}`)
+      .then(res => res.json());
+  }
+
   //Global elements
-  ADD_USER_BUTTON = "images/add_user.png";
+  const ADD_USER_BUTTON = "images/add_user.png";
 
   /**
    * Initialize the content of the page
    */
   function initialize() {
-    createFrame(new User("Kylo Ren"));
-    createFrame(new User("Patrick Sebastien"));
-    createFrame(new User("Donald Trump"));
-    createFrame(new User("Alain Berset"));
+    getData('LionelNanchen');
+    getData('onicoleheig');
+    getData('wasadigi');
+    getData('paulnta');
+    getData('edri');
+    getData('mraheigvd');
+  }
+
+  function getData(username){
+    return Promise.all([
+      getUser(username),
+      getStats(username),
+    ])
+      .then(([user, stats]) => {
+        user.stats = stats;
+        createFrame(user);
+      })
+      .catch(err => {
+        console.error('Error ! cannot fetch data', err);
+      });
   }
 
   /**
@@ -26,14 +54,14 @@ $(function () {
     buttonImg.src = ADD_USER_BUTTON;
     const a = document.createElement("a");
     a.setAttribute("class", "user-frame-image");
-    a.id = user.getName().split(' ').join('-') + "-frame";
+    a.id = user.login.split(' ').join('-') + "-frame";
     const avatar = document.createElement("img");
     avatar.setAttribute("class", "rounded-circle img-fluid d-block mx-auto");
-    avatar.src = user.getAvatar();
+    avatar.src = user.avatar_url;
     a.appendChild(avatar);
     const h3 = document.createElement("h3");
     h3.setAttribute("class", "user-frame-name");
-    h3.textContent = user.getName();
+    h3.textContent = user.login;
 
     //append new elements
     div.appendChild(buttonImg);
@@ -106,7 +134,7 @@ $(function () {
     const user = $("#" + frameId).data(frameId);
 
     //id for the futur user a in the list
-    const id = user.getName().split(' ').join('-') + "-list";
+    const id = user.login.split(' ').join('-') + "-list";
 
     //check if user is already in the list
     if (isUserInList(id)) return;
@@ -118,7 +146,7 @@ $(function () {
 
     const spanUserName = document.createElement("span");
     spanUserName.setAttribute("class", "users-list-name")
-    spanUserName.textContent = user.getName();
+    spanUserName.textContent = user.login;
 
     const button = document.createElement("button");
     button.setAttribute("type", "button");
@@ -150,24 +178,9 @@ $(function () {
   $(document).on("click", "#compare-user-btn", function() {
     //get users
     const userslist = $("#users-list").children();
-    const alert = $("#compare-user-alert");
 
     //need at least 2 users to compare
-    if (userslist.length < 2) {
-      alert.html("Need at least two users");
-      setTimeout(() => {
-        alert.html("")
-      }, 2000);
-      return;
-    }
-    //but no more than 5 users (readability of the table)
-    else if (userslist.length > 5) {
-      alert.html("No more than 5 users");
-      setTimeout(() => {
-        alert.html("")
-      }, 2000);
-      return;
-    }
+    if (userslist.length < 2) return;
 
     //initialize array with all UserList objects
     let users = [];
@@ -190,7 +203,7 @@ $(function () {
       const td = document.createElement("td");
       td.setAttribute("class", "text-center table-row");
       const img = document.createElement("img");
-      img.setAttribute("src", users[i].getAvatar());
+      img.setAttribute("src", users[i].avatar_url);
       img.setAttribute("class", "rounded-circle table-user-image");
       td.append(img);
       headRow.append(td);
@@ -200,7 +213,7 @@ $(function () {
     for (let i = 0; i < users.length; i++) {
       const td = document.createElement("td");
       td.class = "text-center table-row";
-      td.textContent = users[i].getName();
+      td.textContent = users[i].login;
       rows[0].append(td);
     }
 
@@ -208,14 +221,14 @@ $(function () {
     for (let i = 0; i < users.length; i++) {
       const td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = "some informations";
+      td.textContent = users[i].stats.c;
       rows[1].append(td);
     }
 
     for (let i = 0; i < users.length; i++) {
       const td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = "some other informations";
+      td.textContent = users[i].stats.a;
       rows[2].append(td);
     }
 
@@ -272,17 +285,17 @@ $(function () {
     user = $("#" + id).data(id);
 
     //title
-    $("#user-info-modal-title").text(user.getName());//CHANGE WITH USER NAME
+    $("#user-info-modal-title").text(user.login);//CHANGE WITH USER NAME
 
     //image
-    $("#user-modal-image").attr("src", user.getAvatar());//CHANGE WITH IMAGE
+    $("#user-modal-image").attr("src", user.avatar_url);//CHANGE WITH IMAGE
 
     //infos
     $("#user-infos-repo-global").text("yolo/yolo/yolo");
     $("#user-infos-repo-created").text("yala");
     $("#user-infos-repo-joined").text("lol");
-    $("#user-infos-added-line").text("lil");
-    $("#user-infos-sub-line").text("yo");
+    $("#user-infos-added-line").text(user.stats.a);
+    $("#user-infos-sub-line").text(user.stats.d);
     $("#user-infos-ratio-line").text("ya");
 
     //open modal
