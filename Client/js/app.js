@@ -56,7 +56,7 @@ $(function () {
     a.setAttribute("class", "user-frame-image");
     a.id = user.login.split(' ').join('-') + "-frame";
     const avatar = document.createElement("img");
-    avatar.setAttribute("class", "rounded-circle img-fluid d-block mx-auto");
+    avatar.setAttribute("class", "rounded-circle img-fluid d-block mx-auto frame-avatar");
     avatar.src = user.avatar_url;
     a.appendChild(avatar);
     const h3 = document.createElement("h3");
@@ -178,9 +178,20 @@ $(function () {
   $(document).on("click", "#compare-user-btn", function() {
     //get users
     const userslist = $("#users-list").children();
+    const alert = $("#compare-user-alert");
 
     //need at least 2 users to compare
-    if (userslist.length < 2) return;
+    if (userslist.length < 2) {
+      alert.html("Need at lest 2 users");
+      setTimeout(() => alert.html(""), 1500);
+      return;
+    }
+    //no more than 6 users (for readability purpose)
+    else if (userslist.length > 3) {
+      alert.html("No more than 6 users");
+      setTimeout(() => alert.html(""), 1500);
+      return;
+    }
 
     //initialize array with all UserList objects
     let users = [];
@@ -219,17 +230,35 @@ $(function () {
 
     //user infos
     for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
+      //commits
+      let td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = users[i].stats.c;
       rows[1].append(td);
-    }
 
-    for (let i = 0; i < users.length; i++) {
-      const td = document.createElement("td");
+      //++
+      td = document.createElement("td");
       td.setAttribute("class", "table-row");
       td.textContent = users[i].stats.a;
       rows[2].append(td);
+
+      //--
+      td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      td.textContent = users[i].stats.d;
+      rows[3].append(td);
+
+      //followers
+      td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      td.textContent = users[i].stats.fr;
+      rows[4].append(td);
+
+      //following
+      td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      td.textContent = users[i].stats.fg;
+      rows[5].append(td);
     }
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
@@ -291,12 +320,11 @@ $(function () {
     $("#user-modal-image").attr("src", user.avatar_url);//CHANGE WITH IMAGE
 
     //infos
-    $("#user-infos-repo-global").text("yolo/yolo/yolo");
-    $("#user-infos-repo-created").text("yala");
-    $("#user-infos-repo-joined").text("lol");
-    $("#user-infos-added-line").text(user.stats.a);
-    $("#user-infos-sub-line").text(user.stats.d);
-    $("#user-infos-ratio-line").text("ya");
+    $("#user-infos-commit").text(user.stats.c);
+    $("#user-infos-add").text(user.stats.a);
+    $("#user-infos-sub").text(user.stats.d);
+    $("#user-infos-followers").text(user.stats.fr);
+    $("#user-infos-following").text(user.stats.fg);
 
     //open modal
     $("#user-info-modal").modal();
