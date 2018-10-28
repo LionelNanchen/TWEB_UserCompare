@@ -43,6 +43,14 @@ Copy the ```.env.default``` file and rename it to ```.env``` and edit the token 
 
 ```$ npm start```
 
+## Client
+
+We used two bootstrap template to create the frontend part.
+
+For the general look of the page: https://startbootstrap.com/template-overviews/shop-homepage/
+
+For the rounded users avatar: https://startbootstrap.com/template-overviews/round-about/
+
 ## Some helpfull links that we used
 
 MangoDB / mongoose
