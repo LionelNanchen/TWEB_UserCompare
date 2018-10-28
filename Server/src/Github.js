@@ -53,7 +53,7 @@ class Github {
   }
 
   repos(username) {
-    return this.request(`/users/${username}/repos`);
+    return this.request(`/users/${username}/repos?per_page=1000`);
   }
 
   repoLanguages(repoName) {
