@@ -12,6 +12,15 @@ $(function () {
       .then(res => res.json());
   }
 
+  function getFollowing(username) {
+    return fetch(`${baseUrl}/following/${username}`)
+      .then(res => res.json());
+  }
+    
+  function getFollowers(username) {
+    return fetch(`${baseUrl}/followers/${username}`)
+      .then(res => res.json());
+  }
   //Global elements
   const ADD_USER_BUTTON = "images/add_user.png";
 
@@ -31,8 +40,12 @@ $(function () {
     return Promise.all([
       getUser(username),
       getStats(username),
+      getFollowing(username),
+      getFollowers(username),
     ])
-      .then(([user, stats]) => {
+      .then(([user, stats, following, followers]) => {
+        stats.fg = following.length;
+        stats.fr = followers.length;
         user.stats = stats;
         createFrame(user);
       })
@@ -291,11 +304,8 @@ $(function () {
       }
     }
 
-    maxTd[0].style.fontWeight = "bold";
-    maxTd[1].style.fontWeight = "bold";
-    maxTd[2].style.fontWeight = "bold";
-    //maxTd[3].style.fontWeight = "bold";
-    //maxTd[4].style.fontWeight = "bold";
+    //bold all
+    for(i = 0; i < 5; ++i) maxTd[i].style.fontWeight = "bold";
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
 
