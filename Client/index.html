@@ -42,9 +42,8 @@
 
       <h3 class="users-list-title">Users list</h3>
       <button type="button" class="btn btn-outline-primary" id="compare-user-btn" data-toggle="modal">Compare users</button>
+      <br><span id="compare-user-alert"></span>
       <div class="list-group" id="users-list">
-        <!-- <a href="#" class="list-group-item user-list" id="Kylo-Ren-list"><span class="users-list-name">Kylo Ren</span><button type="button" class="close delete-user" aria-label="Close" id="Kylo-Ren-list-close"><span aria-hidden="true">&times;</span></button></a> -->
-        <!-- <a href="#" class="list-group-item user-list" id="Patrick-Sebastien-list"><span class="users-list-name">Patrick Sebastien</span><button type="button" class="close delete-user" aria-label="Close"><span aria-hidden="true">&times;</span></button></a> -->
       </div>
 
     </div><!-- /.col-lg-3 -->
@@ -63,19 +62,7 @@
 
       <!-- User frames -->
       <div class="row" id="user-frame-row">
-
-        <!-- <div class="col-lg-4 col-sm-6 text-center mb-4 user-frame">
-          <img class="add-user-button" src="images/add_user.png" alt="">
-          <a href="#" class="user-frame-image" id="Kylo-Ren-frame"><img class="rounded-circle img-fluid d-block mx-auto" src="images/kyloren.png" alt=""></a>
-          <h3 class="user-frame-name">Kylo Ren</h3>
-        </div>
-        <div class="col-lg-4 col-sm-6 text-center mb-4 user-frame">
-          <img class="add-user-button" src="images/add_user.png" alt="">
-          <a href="#" class="user-frame-image" id="Patrick-Sebastien-frame"><img class="rounded-circle img-fluid d-block mx-auto" src="images/patseb.png" alt=""></a>
-          <h3 class="user-frame-name">Patrick Sebastien</h3>
-        </div> -->
-
-      </div><!-- /.row -->
+      </div>
 
     </div><!-- /.col-lg-9 -->
 
@@ -151,21 +138,14 @@
 
         <!-- User Informations -->
         <div>
-          <h3>Global number of repo (total/ private/ public):</h3>
-          <p id="user-infos-repo-global"></p>
-          <h3>Number of repo created:</h3>
-          <p id="user-infos-repo-created"></p>
-          <h3>Number of repo joined:</h3>
-          <p id="user-infos-repo-joined"></p>
-          <h3>Number of added lines of code (++):</h3>
-          <p id="user-infos-added-line"></p>
-          <h3>Number of subtracted lines of code (--):</h3>
-          <p id="user-infos-sub-line"></p>
-          <h3>Ratio between added and subtracted lines of code:</h3>
-          <p id="user-infos-ratio-line"></p>
+          <h5 class="user-modal-lines">Global number of repo (total/ private/ public):<small class="user-modal-lines-infos" id="user-infos-repo-global"></small></h5>
+          <h5 class="user-modal-lines">Number of repo created:<small class="user-modal-lines-infos" id="user-infos-repo-created"></small></h5>
+          <h5 class="user-modal-lines">Number of repo joined:<small class="user-modal-lines-infos" id="user-infos-repo-joined"></small></h5>
+          <h5 class="user-modal-lines">Number of added lines of code (++):<small class="user-modal-lines-infos" id="user-infos-added-line"></small></h5>
+          <h5 class="user-modal-lines">Number of subtracted lines of code (--):<small class="user-modal-lines-infos" id="user-infos-sub-line"></small></h5>
+          <h5 class="user-modal-lines">Ratio between added and subtracted lines of code:<small class="user-modal-lines-infos" id="user-infos-ratio-line"></small></h5>
         </div>
       </div>
-      <!-- Footer -->
     </div>
   </div>
 </div>

@@ -1,17 +1,25 @@
 # UserCompare - A Github Analytics
 This is the first project for the course TWEB 2018 at the HEIG-VD.
 
-Authors : Nanchen Lionel and Nicole soit Nicoulaz Olivier
+**Authors :** Nanchen Lionel and Nicole soit Nicoulaz Olivier
 
-With this application you can compare differents github users with a simple interface.
+##UserCompare:
 
+UserComapre is a GitHub analytics website. With this application you can compare differents GitHub users with a simple interface.
 
+The informations available are:
+
+The GitHub users available are:
+
+##General:
+
+This project is separated in two parts: the client and the server.
+
+The client that represent the frontend manages all interaction with the users and the GitHub REST API.
 
 ## How to use it ?
 
 To compare github users you have to click on the plus icon of the users that you want to compare to add them in the list at the right of the screen (on the top of the screen with mobile). When you have selected some users click on "Compare users" to show the datas.
-
-
 
 ## How to install it locally ?
 
@@ -35,9 +43,13 @@ Copy the ```.env.default``` file and rename it to ```.env``` and edit the token 
 
 ```$ npm start```
 
+## Client
 
+We used two bootstrap template to create the frontend part.
 
+For the general look of the page: https://startbootstrap.com/template-overviews/shop-homepage/
 
+For the rounded users avatar: https://startbootstrap.com/template-overviews/round-about/
 
 ## Some helpfull links that we used
 
