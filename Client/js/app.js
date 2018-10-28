@@ -16,7 +16,7 @@ $(function () {
     return fetch(`${baseUrl}/following/${username}`)
       .then(res => res.json());
   }
-    
+
   function getFollowers(username) {
     return fetch(`${baseUrl}/followers/${username}`)
       .then(res => res.json());
@@ -200,7 +200,7 @@ $(function () {
       return;
     }
     //no more than 6 users (for readability purpose)
-    else if (userslist.length > 3) {
+    else if (userslist.length > 6) {
       alert.html("No more than 6 users");
       setTimeout(() => alert.html(""), 1500);
       return;
@@ -242,8 +242,8 @@ $(function () {
     }
 
     //user infos
-    let max = [0,0,0,0,0];
-    let maxTd = [null, null, null, null, null];
+    let max = [0,0,0,0,0,0];
+    let maxTd = [null, null, null, null, null, null];
 
     for (let i = 0; i < users.length; i++) {
       //commits
@@ -279,10 +279,11 @@ $(function () {
         maxTd[2] = td;
       }
 
-      //followers
+      //ratio
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.fr;
+      value = Math.round((users[i].stats.a / users[i].stats.d) * 100) / 100;
+      console.log(value);
       td.textContent = value;
       rows[4].append(td);
       if (value > max[3]) {
@@ -290,20 +291,31 @@ $(function () {
         maxTd[3] = td;
       }
 
-      //following
+      //followers
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.fg;
+      value = users[i].stats.fr;
       td.textContent = value;
       rows[5].append(td);
       if (value > max[4]) {
         max[4] = value;
         maxTd[4] = td;
       }
+
+      //following
+      td = document.createElement("td");
+      td.setAttribute("class", "table-row");
+      value = users[i].stats.fg;
+      td.textContent = value;
+      rows[6].append(td);
+      if (value > max[5]) {
+        max[5] = value;
+        maxTd[5] = td;
+      }
     }
 
     //bold all
-    for(i = 0; i < 5; ++i) maxTd[i].style.fontWeight = "bold";
+    for(i = 0; i < maxTd.length; ++i) maxTd[i].style.fontWeight = "bold";
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
 
@@ -367,6 +379,7 @@ $(function () {
     $("#user-infos-commit").text(user.stats.c);
     $("#user-infos-add").text(user.stats.a);
     $("#user-infos-del").text(user.stats.d);
+    $("#user-infos-ratio").text(Math.round((user.stats.a / user.stats.d) * 100) / 100);
     $("#user-infos-followers").text(user.stats.fr);
     $("#user-infos-following").text(user.stats.fg);
 
