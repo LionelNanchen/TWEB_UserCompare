@@ -30,6 +30,11 @@ lionel.save().then(() => console.log('User saved'));
 app.use(cors());
 
 // return informations from user
+app.get('/', (req, res) => {
+  res.send('API working fine.');
+});
+
+// return informations from user
 app.get('/users/:username', (req, res, next) => {
   client.user(req.params.username)
     .then(user => res.send(user))
