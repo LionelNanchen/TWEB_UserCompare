@@ -14,6 +14,18 @@ body {
   }
 }
 
+.user-modal-lines {
+  margin-left: 15px;
+  margin-bottom: 30px;
+}
+
+.user-modal-lines-infos {
+  font-size: 24px;
+  position: absolute;
+  left: 500px;
+  color: #007bff;
+}
+
 #compare-user-btn {
   font-size: 18px;
   margin-bottom: 10px;
