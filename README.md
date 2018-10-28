@@ -9,13 +9,31 @@ UserComapre is a GitHub analytics website. With this application you can compare
 
 The informations available are:
 
+- Number of commits
+- Number of added lines (++)
+- Number of subtracted lines (--)
+- Ration between added and subtracted lines
+- Number of followers
+- Number of following
+
 The GitHub users available are:
+
+- LionelNanchen
+- onicoleheig
+- wasadigi
+- paulnta
+- edri
+- mraheigvd
+- kamkill01011
+- onicole
 
 ##General:
 
 This project is separated in two parts: the client and the server.
 
-The client that represent the frontend manages all interaction with the users and the GitHub REST API.
+The client represent the frontend. It manages all interaction with the users.
+
+The server represent the backend. It communicate with the GitHub REST API to recover all needed datas and make those available for the client in JSON format.
 
 ## How to use it ?
 
