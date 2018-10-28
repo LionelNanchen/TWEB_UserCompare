@@ -226,10 +226,23 @@ $(function () {
     for (let i = 0; i < users.length; i++) {
       const td = document.createElement("td");
       td.setAttribute("class", "text-center table-row");
+
       const img = document.createElement("img");
       img.setAttribute("src", users[i].avatar_url);
       img.setAttribute("class", "rounded-circle table-user-image");
       td.append(img);
+
+      const button = document.createElement("button");
+      button.setAttribute("type", "button");
+      button.setAttribute("class", "close modal-delete-user");
+      button.setAttribute("aria-label", "Close");
+
+      const span = document.createElement("span");
+      span.setAttribute("aria-hidden", "true");
+      span.innerHTML = "&times;";
+      button.appendChild(span);
+      td.appendChild(button);
+
       headRow.append(td);
     }
 
@@ -283,7 +296,6 @@ $(function () {
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
       value = Math.round((users[i].stats.a / users[i].stats.d) * 100) / 100;
-      console.log(value);
       td.textContent = value;
       rows[4].append(td);
       if (value > max[3]) {
@@ -370,10 +382,10 @@ $(function () {
     user = $("#" + id).data(id);
 
     //title
-    $("#user-info-modal-title").text(user.login);//CHANGE WITH USER NAME
+    $("#user-info-modal-title").text(user.login);
 
     //image
-    $("#user-modal-image").attr("src", user.avatar_url);//CHANGE WITH IMAGE
+    $("#user-modal-image").attr("src", user.avatar_url);
 
     //infos
     $("#user-infos-commit").text(user.stats.c);
@@ -394,6 +406,28 @@ $(function () {
   $(document).on("click", ".delete-user", function (e) {
     e.stopPropagation();
     this.parentElement.parentElement.removeChild(this.parentElement);
+  });
+
+  /**
+  * Action performed after click on a cross in a column in the table
+  * Delete the column selected
+  */
+  $(document).on("click", ".modal-delete-user", function (e) {
+    e.stopPropagation();
+    const array = this.parentElement.parentElement.children;
+    for (let i = 0; i < array.length; ++i) {
+      if (array[i] == this.parentElement) {
+        const headRow = $("#head-row").children()[i].remove();
+        const imagesRow = $("#images-row").children()[i].remove();
+        const commitsRow = $("#commits-row").children()[i].remove();
+        const addRow = $("#add-row").children()[i].remove();
+        const delRow = $("#del-row").children()[i].remove();
+        const ratioRow = $("#ratio-row").children()[i].remove();
+        const followersRow = $("#followers-row").children()[i].remove();
+        const followingRow = $("#following-row").children()[i].remove();
+        break;
+      }
+    }
   });
 
   //Initialization of the web page;
