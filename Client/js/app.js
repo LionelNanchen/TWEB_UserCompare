@@ -242,8 +242,6 @@ $(function () {
     }
 
     //user infos
-    let maxCommit = 0, maxAdd = 0, maxSub = 0, maxFr = 0, maxFg = 0;
-    let maxCommitTd, maxAddTd, maxSubTd, maxFgTd;
     let max = [0,0,0,0,0];
     let maxTd = [null, null, null, null, null];
 
@@ -368,7 +366,7 @@ $(function () {
     //infos
     $("#user-infos-commit").text(user.stats.c);
     $("#user-infos-add").text(user.stats.a);
-    $("#user-infos-sub").text(user.stats.d);
+    $("#user-infos-del").text(user.stats.d);
     $("#user-infos-followers").text(user.stats.fr);
     $("#user-infos-following").text(user.stats.fg);
 
