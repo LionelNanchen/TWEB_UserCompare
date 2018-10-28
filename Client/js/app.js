@@ -1,6 +1,7 @@
 $(function () {
 
-  const baseUrl = 'http://localhost:3000';
+  baseUrl = 'http://localhost:3000';
+  ADD_USER_BUTTON = "images/add_user.png";
 
   function getUser(username) {
     return fetch(`${baseUrl}/users/${username}`)
@@ -21,8 +22,6 @@ $(function () {
     return fetch(`${baseUrl}/followers/${username}`)
       .then(res => res.json());
   }
-  //Global elements
-  const ADD_USER_BUTTON = "images/add_user.png";
 
   /**
    * Initialize the content of the page
