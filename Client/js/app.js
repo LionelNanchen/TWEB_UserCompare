@@ -1,7 +1,7 @@
 $(function () {
 
   //Global elements
-  const ADD_USER_BUTTON = "images/add_user.png";
+  ADD_USER_BUTTON = "images/add_user.png";
 
   /**
    * Initialize the content of the page
@@ -150,9 +150,24 @@ $(function () {
   $(document).on("click", "#compare-user-btn", function() {
     //get users
     const userslist = $("#users-list").children();
+    const alert = $("#compare-user-alert");
 
     //need at least 2 users to compare
-    if (userslist.length < 2) return;
+    if (userslist.length < 2) {
+      alert.html("Need at least two users");
+      setTimeout(() => {
+        alert.html("")
+      }, 2000);
+      return;
+    }
+    //but no more than 5 users (readability of the table)
+    else if (userslist.length > 5) {
+      alert.html("No more than 5 users");
+      setTimeout(() => {
+        alert.html("")
+      }, 2000);
+      return;
+    }
 
     //initialize array with all UserList objects
     let users = [];
