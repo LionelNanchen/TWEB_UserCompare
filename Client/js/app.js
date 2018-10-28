@@ -229,37 +229,73 @@ $(function () {
     }
 
     //user infos
+    let maxCommit = 0, maxAdd = 0, maxSub = 0, maxFr = 0, maxFg = 0;
+    let maxCommitTd, maxAddTd, maxSubTd, maxFgTd;
+    let max = [0,0,0,0,0];
+    let maxTd = [null, null, null, null, null];
+
     for (let i = 0; i < users.length; i++) {
       //commits
       let td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = users[i].stats.c;
+      let value = users[i].stats.c;
+      td.textContent = value;
       rows[1].append(td);
+      if (value > max[0]) {
+        max[0] = value;
+        maxTd[0] = td;
+      }
 
       //++
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = users[i].stats.a;
+      value = users[i].stats.a;
+      td.textContent = value;
       rows[2].append(td);
+      if (value > max[1]) {
+        max[1] = value;
+        maxTd[1] = td;
+      }
 
       //--
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = users[i].stats.d;
+      value = users[i].stats.d;
+      td.textContent = value;
       rows[3].append(td);
+      if (value > max[2]) {
+        max[2] = value;
+        maxTd[2] = td;
+      }
 
       //followers
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = users[i].stats.fr;
+      value = users[i].stats.fr;
+      td.textContent = value;
       rows[4].append(td);
+      if (value > max[3]) {
+        max[3] = value;
+        maxTd[3] = td;
+      }
 
       //following
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      td.textContent = users[i].stats.fg;
+      value = users[i].stats.fg;
+      td.textContent = value;
       rows[5].append(td);
+      if (value > max[4]) {
+        max[4] = value;
+        maxTd[4] = td;
+      }
     }
+
+    maxTd[0].style.fontWeight = "bold";
+    maxTd[1].style.fontWeight = "bold";
+    maxTd[2].style.fontWeight = "bold";
+    //maxTd[3].style.fontWeight = "bold";
+    //maxTd[4].style.fontWeight = "bold";
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
 
