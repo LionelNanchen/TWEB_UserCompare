@@ -34,9 +34,43 @@ $(function () {
     getData('paulnta');
     getData('edri');
     getData('mraheigvd');
+    getData('kamkill01011');
+    getData('onicole');
   }
 
+  /**
+   * Add the loading icon
+   * @param username the name of the user
+   */
+  function addLoading(username){
+      const row = $("#user-frame-row");
+      const div = document.createElement("div");
+      div.setAttribute("class", "col-lg-4 col-sm-6 text-center mb-4 user-frame");
+      div.setAttribute("id", "user-frame-box-" + username.split(' ').join('-'));
+      const divLoading = document.createElement("div");
+      divLoading.setAttribute("class", "loader");
+      const h3 = document.createElement("h3");
+      h3.setAttribute("class", "user-frame-name");
+      h3.textContent = username;
+      div.appendChild(divLoading);
+      div.appendChild(h3);
+      row.append(div);
+  }
+
+  /**
+   * Delete the loading icon
+   * @param username the name of the user
+   */
+  function deleteLoading(username){
+      $("#user-frame-box-" + username + " .loader").remove();
+  }
+
+  /**
+   * Get user data from the server
+   * @param username the name of the user
+   */
   function getData(username){
+    addLoading(username);
     return Promise.all([
       getUser(username),
       getStats(username),
@@ -58,10 +92,9 @@ $(function () {
    * Create a frame with the user informations
    * @param user the user on which the frame will be created
    */
-  function createFrame(user) {
+   function createFrame(user) {
     const row = $("#user-frame-row");
-    const div = document.createElement("div");
-    div.setAttribute("class", "col-lg-4 col-sm-6 text-center mb-4 user-frame");
+    const div = $("#user-frame-box-" + user.login);
     const buttonImg = document.createElement("img");
     buttonImg.setAttribute("class", "add-user-button");
     buttonImg.src = ADD_USER_BUTTON;
@@ -72,18 +105,34 @@ $(function () {
     avatar.setAttribute("class", "rounded-circle img-fluid d-block mx-auto frame-avatar");
     avatar.src = user.avatar_url;
     a.appendChild(avatar);
-    const h3 = document.createElement("h3");
-    h3.setAttribute("class", "user-frame-name");
-    h3.textContent = user.login;
+    deleteLoading(user.login);
 
     //append new elements
-    div.appendChild(buttonImg);
-    div.appendChild(a);
-    div.appendChild(h3);
-    row.append(div);
+    div.append(buttonImg);
+    div.prepend(a);
 
     //attach user to the frame
     $("#" + a.id).data(a.id, user);
+  }
+
+  /**
+   * Bold all the biggest values for each row on the comparison table
+   */
+  function boldBiggestVules() {
+    const rows = $("#sorted-tbody").children();
+    for (let i = 1; i < rows.length; ++i) {
+      let max = 0;
+      let index = 0;
+      row = rows[i].children;
+      for (let j = 1; j < row.length; ++j) {
+        row[j].style.fontWeight = "normal";
+        if (parseInt(row[j].textContent) > parseInt(max)) {
+          max = parseInt(row[j].textContent);
+          index = j;
+        }
+      }
+      row[index].style.fontWeight = "bold";
+    }
   }
 
   //code inspired by https://www.w3schools.com/howto/howto_js_filter_lists.asp
@@ -255,79 +304,46 @@ $(function () {
     }
 
     //user infos
-    let max = [0,0,0,0,0,0];
-    let maxTd = [null, null, null, null, null, null];
-
     for (let i = 0; i < users.length; i++) {
       //commits
       let td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      let value = users[i].stats.c;
-      td.textContent = value;
+      td.textContent = users[i].stats.c;
       rows[1].append(td);
-      if (value > max[0]) {
-        max[0] = value;
-        maxTd[0] = td;
-      }
 
       //++
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.a;
-      td.textContent = value;
+      td.textContent = users[i].stats.a;
       rows[2].append(td);
-      if (value > max[1]) {
-        max[1] = value;
-        maxTd[1] = td;
-      }
 
       //--
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.d;
-      td.textContent = value;
+      td.textContent = users[i].stats.d;
       rows[3].append(td);
-      if (value > max[2]) {
-        max[2] = value;
-        maxTd[2] = td;
-      }
 
       //ratio
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = Math.round((users[i].stats.a / users[i].stats.d) * 100) / 100;
-      td.textContent = value;
+      td.textContent = Math.round((users[i].stats.a / users[i].stats.d) * 100) / 100;
       rows[4].append(td);
-      if (value > max[3]) {
-        max[3] = value;
-        maxTd[3] = td;
-      }
 
       //followers
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.fr;
-      td.textContent = value;
+      td.textContent = users[i].stats.fr;
       rows[5].append(td);
-      if (value > max[4]) {
-        max[4] = value;
-        maxTd[4] = td;
-      }
 
       //following
       td = document.createElement("td");
       td.setAttribute("class", "table-row");
-      value = users[i].stats.fg;
-      td.textContent = value;
+      td.textContent = users[i].stats.fg;
       rows[6].append(td);
-      if (value > max[5]) {
-        max[5] = value;
-        maxTd[5] = td;
-      }
     }
 
     //bold all
-    for(i = 0; i < maxTd.length; ++i) maxTd[i].style.fontWeight = "bold";
+    boldBiggestVules();
 
     $("#users-comparison-table #sorted-head tr").sortable("refresh");
 
@@ -417,17 +433,19 @@ $(function () {
     const array = this.parentElement.parentElement.children;
     for (let i = 0; i < array.length; ++i) {
       if (array[i] == this.parentElement) {
-        const headRow = $("#head-row").children()[i].remove();
-        const imagesRow = $("#images-row").children()[i].remove();
-        const commitsRow = $("#commits-row").children()[i].remove();
-        const addRow = $("#add-row").children()[i].remove();
-        const delRow = $("#del-row").children()[i].remove();
-        const ratioRow = $("#ratio-row").children()[i].remove();
-        const followersRow = $("#followers-row").children()[i].remove();
-        const followingRow = $("#following-row").children()[i].remove();
+        $("#head-row").children()[i].remove();
+        $("#images-row").children()[i].remove();
+        $("#commits-row").children()[i].remove();
+        $("#add-row").children()[i].remove();
+        $("#del-row").children()[i].remove();
+        $("#ratio-row").children()[i].remove();
+        $("#followers-row").children()[i].remove();
+        $("#following-row").children()[i].remove();
         break;
       }
     }
+
+    boldBiggestVules();
   });
 
   //Initialization of the web page;
